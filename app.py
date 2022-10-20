@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#import plotly.express as px
+import plotly.express as px
 
 insurance_data = pd.read_csv("insurance.csv")
 
@@ -12,9 +12,9 @@ norhtwest_data = insurance_data.query("region == 'norhtwest'")
 southeast_data = insurance_data.query("region == 'southeast'")
 northeast_data = insurance_data.query("region == 'northeast'")
 
-# st.header("Charges: age & sex in each region ")
-# st.subheader("Southwest Region")
-# SW_charge_age_fig_MF = px.scatter(southwest_data, x = 'age', y='charges', color = 'sex')
+st.header("Charges: age & sex in each region ")
+st.subheader("Southwest Region")
+SW_charge_age_fig_MF = px.scatter(southwest_data, x = 'age', y='charges', color = 'sex')
 
 # SW_charge_age_fig_MF.update_xaxes(autorange=True)
 # SW_charge_age_fig_MF.update_yaxes(autorange=True, tickprefix="$")
