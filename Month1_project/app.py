@@ -50,7 +50,7 @@ SW_charge_age_fig_MF.update_yaxes(autorange=True)
 SE_charge_age_fig_MF = px.scatter(southeast_data, x = 'age', y='charges', color = 'sex')
 SE_charge_age_fig_MF.update_layout(
     title={
-        'text': "Southeast region charges per age",
+        'text': "Southeast",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -63,7 +63,7 @@ SE_charge_age_fig_MF.update_yaxes(autorange=True, tickprefix="$")
 SE_charge_age_bar_fig_MF = px.bar(southeast_data, x = 'age', y='charges', facet_col = 'sex')
 SE_charge_age_bar_fig_MF.update_layout(
     title={
-        'text': "Southeast region charges per age",
+        'text': "Southeast",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -76,7 +76,7 @@ SE_charge_age_fig_MF.update_yaxes(autorange=True)
 NW_charge_age_fig_MF = px.scatter(northwest_data, x = 'age', y='charges', color = 'sex')
 NW_charge_age_fig_MF.update_layout(
     title={
-        'text': "Northwest region charges per age",
+        'text': "Northwest",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -89,7 +89,7 @@ NW_charge_age_fig_MF.update_yaxes(autorange=True, tickprefix="$")
 NW_charge_age_bar_fig_MF = px.bar(northwest_data, x = 'age', y='charges', facet_col = 'sex')
 NW_charge_age_bar_fig_MF.update_layout(
     title={
-        'text': "Northwest region charges per age",
+        'text': "Northwest",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
