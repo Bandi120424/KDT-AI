@@ -5,13 +5,10 @@ import numpy as np
 import plotly.express as px 
 import plotly.graph_objects as go
 
+#https://bandi120424-ai-dev-course-month1-projectapp-month-1-vxuiyx.streamlitapp.com/
 
 st.set_page_config(layout= "wide")
-
 insurance_data = pd.read_csv("Month1_project/insurance.csv")
-
-st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
-st.write("made by bandi12424@naver.com")
 
 ### 각 지역별로 데이터 나누기 
 southwest_data = insurance_data.query("region == 'southwest'")
@@ -102,7 +99,7 @@ NW_charge_age_fig_MF.update_yaxes(autorange=True)
 NE_charge_age_fig_MF = px.scatter(northeast_data, x = 'age', y='charges', color = 'sex')
 NE_charge_age_fig_MF.update_layout(
     title={
-        'text': "Northwest region charges per age",
+        'text': "Northwest",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -115,7 +112,7 @@ NE_charge_age_fig_MF.update_yaxes(autorange=True, tickprefix="$")
 NE_charge_age_bar_fig_MF = px.bar(northeast_data, x = 'age', y='charges', facet_col = 'sex')
 NE_charge_age_bar_fig_MF.update_layout(
     title={
-        'text': "Northwest region charges per age",
+        'text': "Northwest",
         'y':0.95,
         'x':0.5,
         'xanchor': 'center',
@@ -358,108 +355,141 @@ NE_sunburst_fig.update_xaxes(tickfont=dict(color='rgba(0,0,0,0)'))
 NE_sunburst_fig.update_yaxes(tickfont=dict(color='rgba(0,0,0,0)'))
 
 #############DISPLAY#################
-
-
-tab1, tab2, tab3 = st.tabs(["age & sex", "age & smoking", "smoking ratio"] ) #max tab 갯수 = 3
-
-with tab1: ###나이별, 성별 요금 
-    st.header("Charges: age & sex in each region ")
-    #display
-    d_col5, d_col6 = st.columns(2)
-    with d_col5:
-        st.plotly_chart(SW_charge_age_fig_MF)
-    with d_col6:
-        st.plotly_chart(SE_charge_age_fig_MF)
-
-    d_col7, d_col8 = st.columns(2)
-    with d_col7:
-        st.plotly_chart(NW_charge_age_fig_MF)
-    with d_col8:
-        st.plotly_chart(NE_charge_age_fig_MF)
-
-    d_col1, d_col2 = st.columns(2)
-    with d_col1:
-        st.plotly_chart(SW_charge_age_bar_fig_MF)
-    with d_col2:
-        st.plotly_chart(SE_charge_age_bar_fig_MF)
-        
-    d_col3, d_col4 = st.columns(2)
-    with d_col3:
-        st.plotly_chart(NW_charge_age_bar_fig_MF)
-    with d_col4:
-        st.plotly_chart(NE_charge_age_bar_fig_MF)
-
-with tab2: 
-    st.header("Charges: age & smoking in each region ")
-    #display
-    d_col9, d_col10 = st.columns(2)
-    with d_col9:
-        st.plotly_chart(SW_charge_age_fig_SM)
-    with d_col10:
-        st.plotly_chart(SE_charge_age_fig_SM)    
-
-    d_col11, d_col12 = st.columns(2)
-    with d_col11:
-        st.plotly_chart(NW_charge_age_fig_SM)
-    with d_col12:
-        st.plotly_chart(NE_charge_age_fig_SM)
-
-    d_col13, d_col14 = st.columns(2)
-    with d_col13:
-        st.plotly_chart(SW_charge_age_bar_fig_SM)
-    with d_col14:
-        st.plotly_chart(SE_charge_age_bar_fig_SM)
-
-    d_col15, d_col16 = st.columns(2)
-    with d_col15:
-        st.plotly_chart(NW_charge_age_bar_fig_SM)
-    with d_col16:
-        st.plotly_chart(NE_charge_age_bar_fig_SM)
+def intro():
+    st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
+    st.sidebar.success("Select a menu")
     
-with tab3: #smoking ratio
-    st.header("smoking ratio in each region ")
-    d_col17, d_col18 = st.columns(2)
-    with d_col17:
-        st.plotly_chart(SW_sunburst_fig)
-    with d_col18:
-        st.plotly_chart(SE_sunburst_fig)
-
-    d_col19, d_col20 = st.columns(2)
-    with d_col19:
-        st.plotly_chart(NW_sunburst_fig)
-    with d_col20:
-        st.plotly_chart(NE_sunburst_fig)
-
-#지역과 나이, 성별, 흡연여부를 입력했을 때, charges의 평균을 구하도록 해보자 
-st.header("Averages on charges")
-
-age = st.number_input("age", min_value = 1, step = 1, format = "%d")
-region = st.selectbox("region", options = ['southwest', 'southeast', 'northwest', 'northeast'])
-sex = st.radio("sex", options = ['female', 'male'])
-smoking = st.radio("smoker", options = ['yes', 'no'])
-
-if st.button("submit"): #버튼이 눌리면
-    #해당하는 data의 average 계산
-    op_region = (insurance_data['region'] == region)
-    op_age = (insurance_data['age'] == age)
-    op_sex = (insurance_data['sex'] == sex)
-    op_smoking = (insurance_data['smoker'] == smoking)
-
-    result = insurance_data[op_region & op_age & op_sex & op_smoking]
-    avg = round(result['charges'].mean(),2)
+    st.write("made by bandi12424@naver.com") 
+    st.write("dataset: https://www.kaggle.com/datasets/mirichoi0218/insurance ")
+    st.write("Data description:")
+    st.write("- age: age of primary beneficiary")
+    st.write("- sex: insurance contractor gender, female, male")
+    st.write("- bmi: Body mass index, providing an understanding of body, weights that are relatively high or low relative to height, objective index of body weight using the ratio of height to weight, ideally 18.5 to 24.9")
+    st.write("- children: Number of children covered by health insurance / Number of dependents")
+    st.write("- smoker: Smoking")
+    st.write("- region: the beneficiary residential area in the US, northeast, southeast, southwest, northwest")
+    st.write("- charges: Individual medical costs billed by health insurance")
         
-    if len(result) == 0: #해당하는 데이터가 없음
-        st.write("There is no such data. Please choose another value")
-    else:
-        col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Age", value = age)
-        col2.metric("Region", value = region)
-        col3.metric("Sex", value = sex)
-        col4.metric("Smoker", value = smoking)
-                
-        st.subheader(f"Average charge: {avg} dollar")
-        st.write("selected dataset")
-        st.dataframe(result)
-else:
-    st.write("Press the sumbit button")
 
+def data_anal():
+    tab1, tab2, tab3 = st.tabs(["age & sex", "age & smoking", "smoking ratio"] ) #max tab 갯수 = 3
+
+    with tab1: ###나이별, 성별 요금 
+        st.header("Charges: age & sex in each region ")
+        #display
+        d_col5, d_col6 = st.columns(2)
+        with d_col5:
+            st.plotly_chart(SW_charge_age_fig_MF)
+        with d_col6:
+            st.plotly_chart(SE_charge_age_fig_MF)
+
+        d_col7, d_col8 = st.columns(2)
+        with d_col7:
+            st.plotly_chart(NW_charge_age_fig_MF)
+        with d_col8:
+            st.plotly_chart(NE_charge_age_fig_MF)
+
+        d_col1, d_col2 = st.columns(2)
+        with d_col1:
+            st.plotly_chart(SW_charge_age_bar_fig_MF)
+        with d_col2:
+            st.plotly_chart(SE_charge_age_bar_fig_MF)
+            
+        d_col3, d_col4 = st.columns(2)
+        with d_col3:
+            st.plotly_chart(NW_charge_age_bar_fig_MF)
+        with d_col4:
+            st.plotly_chart(NE_charge_age_bar_fig_MF)
+
+    with tab2: 
+        st.header("Charges: age & smoking in each region ")
+        #display
+        d_col9, d_col10 = st.columns(2)
+        with d_col9:
+            st.plotly_chart(SW_charge_age_fig_SM)
+        with d_col10:
+            st.plotly_chart(SE_charge_age_fig_SM)    
+
+        d_col11, d_col12 = st.columns(2)
+        with d_col11:
+            st.plotly_chart(NW_charge_age_fig_SM)
+        with d_col12:
+            st.plotly_chart(NE_charge_age_fig_SM)
+
+        d_col13, d_col14 = st.columns(2)
+        with d_col13:
+            st.plotly_chart(SW_charge_age_bar_fig_SM)
+        with d_col14:
+            st.plotly_chart(SE_charge_age_bar_fig_SM)
+
+        d_col15, d_col16 = st.columns(2)
+        with d_col15:
+            st.plotly_chart(NW_charge_age_bar_fig_SM)
+        with d_col16:
+            st.plotly_chart(NE_charge_age_bar_fig_SM)
+        
+    with tab3: #smoking ratio
+        st.header("smoking ratio in each region ")
+        d_col17, d_col18 = st.columns(2)
+        with d_col17:
+            st.plotly_chart(SW_sunburst_fig)
+        with d_col18:
+            st.plotly_chart(SE_sunburst_fig)
+
+        d_col19, d_col20 = st.columns(2)
+        with d_col19:
+            st.plotly_chart(NW_sunburst_fig)
+        with d_col20:
+            st.plotly_chart(NE_sunburst_fig)
+
+    # tab4, tab5, tab6 = st.tabs(["BMI & age", "BMI & smoking", "bmi & sex"] ) #max tab 갯수 = 3
+    # with tab4:
+    #     st.header("Charges: BMI & age in each region ")
+    # with tab5:
+    #     st.header("Charges: BMI & smoking in each region ")
+    # with tab6:
+    #     st.header("Charges: bmi & sex in each region ")
+    
+    
+def average():
+    #지역과 나이, 성별, 흡연여부를 입력했을 때, charges의 평균을 구하도록 해보자 
+    st.header("Averages on charges")
+
+    age = st.number_input("age", min_value = 1, step = 1, format = "%d")
+    region = st.selectbox("region", options = ['southwest', 'southeast', 'northwest', 'northeast'])
+    sex = st.radio("sex", options = ['female', 'male'])
+    smoking = st.radio("smoker", options = ['yes', 'no'])
+
+    if st.button("submit"): #버튼이 눌리면
+        #해당하는 data의 average 계산
+        op_region = (insurance_data['region'] == region)
+        op_age = (insurance_data['age'] == age)
+        op_sex = (insurance_data['sex'] == sex)
+        op_smoking = (insurance_data['smoker'] == smoking)
+
+        result = insurance_data[op_region & op_age & op_sex & op_smoking]
+        avg = round(result['charges'].mean(),2)
+            
+        if len(result) == 0: #해당하는 데이터가 없음
+            st.write("There is no such data. Please choose another value")
+        else:
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("Age", value = age)
+            col2.metric("Region", value = region)
+            col3.metric("Sex", value = sex)
+            col4.metric("Smoker", value = smoking)
+                    
+            st.subheader(f"Average charge: {avg} dollar")
+            st.write("selected dataset")
+            st.dataframe(result)
+    else:
+        st.write("Press the sumbit button")
+
+page_names_to_funcs = {
+    "Intro": intro,
+    "Data Analysis": data_anal,
+    "Average": average
+}
+
+demo_name = st.sidebar.selectbox("Choose", page_names_to_funcs.keys())
+page_names_to_funcs[demo_name]()
