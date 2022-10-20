@@ -314,3 +314,37 @@ st.plotly_chart(NE_sunburst_fig)
 st.plotly_chart(NE_charge_age_fig_SM)
 st.plotly_chart(NE_charge_age_bar_fig_SM)
 
+#동적기능을 만들어보자 
+#지역과 나이, 성별, 흡연여부를 입력했을 때, charges의 평균을 구하도록 해보자 
+st.header("Averages on charges")
+
+age = st.number_input("age", min_value = 1, step = 1, format = "%d")
+region = st.selectbox("region", options = ['southwest', 'southeast', 'northwest', 'northeast'])
+sex = st.radio("sex", options = ['female', 'male'])
+smoking = st.radio("smoker", options = ['yes', 'no'])
+
+if st.button("submit"): #버튼이 눌리면
+    #해당하는 data의 average 계산
+    op_region = (insurance_data['region'] == region)
+    op_age = (insurance_data['age'] == age)
+    op_sex = (insurance_data['sex'] == sex)
+    op_smoking = (insurance_data['smoker'] == smoking)
+
+    result = insurance_data[op_region & op_age & op_sex & op_smoking]
+    avg = round(result['charges'].mean(),2)
+    
+    if len(result) == 0: #해당하는 데이터가 없음
+        st.write("There is no such data. Please choose another value")
+    else:
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Age", value = age)
+        col2.metric("Region", value = region)
+        col3.metric("Sex", value = sex)
+        col4.metric("Smoker", value = smoking)
+            
+        st.subheader(f"Average charge {avg} dollar")
+        st.write("selected dataset")
+        st.dataframe(result)
+else:
+    st.write("Press the sumbit button")
+
