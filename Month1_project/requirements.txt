@@ -6,6 +6,5 @@ Pillow>=8.3.2
 jsonschema==3.2.0
 requests==2.22.0
 plotly_express==0.4.0
-tabs==1.13.0
 streamlit-analytics==0.2.2
 streamlit-metrics==0.1.0
