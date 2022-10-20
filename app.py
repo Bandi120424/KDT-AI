@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 
-insurance_data = pd.read_csv("./insurance.csv")
+insurance_data = pd.read_csv("insurance.csv")
 
 st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
 
