@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-insurance_data = pd.read_csv("./insurance.csv")
+insurance_data = pd.read_csv("insurance.csv")
 
 st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
 
