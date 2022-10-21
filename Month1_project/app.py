@@ -1,5 +1,4 @@
 #requirements.txt 필요
-from tkinter import W
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,7 +14,6 @@ import smoker
 import observation
 
 st.set_page_config(layout= "wide")
-
 
 #############DISPLAY#################
 def intro():
