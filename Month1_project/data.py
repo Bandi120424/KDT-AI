@@ -5,7 +5,7 @@ import numpy as np
 import plotly.express as px 
 import plotly.graph_objects as go
 
-insurance_data = pd.read_csv("./insurance.csv")
+insurance_data = pd.read_csv("Month1_project/insurance.csv")
 insurance_data['bmi'] = insurance_data['bmi'].apply(round) #시각화 편의상 BMI를 round
 
 def df_insure_data():     
