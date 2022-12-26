@@ -204,7 +204,7 @@ def observe():
         st.write("Southeast region")
         st.plotly_chart(observation.region_avg_bar_fig)
         
-    with st.expander("which BMI group has the highest averga charges?"):
+    with st.expander("which BMI group has the highest average charges?"):
         observation.high_bmi()
         
     with st.expander("Person with the highest charges in each region"):
