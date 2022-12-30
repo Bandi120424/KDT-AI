@@ -52,11 +52,11 @@ def intro():
     st.markdown('#### Data description:')
     st.markdown("###### - age: age of primary beneficiary")
     st.markdown("###### - sex: insurance contractor gender, female, male")
-    st.markdown("###### - bmi: Body mass index, providing an understanding of body, weights that are relatively high or low relative to height, objective index of body weight using the ratio of height to weight, ideally 18.5 to 24.9")
-    st.markdown("###### - children: Number of children covered by health insurance / Number of dependents")
-    st.markdown("###### - smoker: Smoking")
+    st.markdown("###### - bmi: body mass index, providing an understanding of body, weights that are relatively high or low relative to height, objective index of body weight using the ratio of height to weight, ideally 18.5 to 24.9")
+    st.markdown("###### - children: number of children covered by health insurance / number of dependents")
+    st.markdown("###### - smoker: smoking")
     st.markdown("###### - region: the beneficiary residential area in the US, northeast, southeast, southwest, northwest")
-    st.markdown("###### - charges: Individual medical costs billed by health insurance")
+    st.markdown("###### - charges: individual medical costs billed by health insurance")
 
 
 def data_anal():
