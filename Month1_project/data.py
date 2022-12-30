@@ -5,8 +5,10 @@ import numpy as np
 import plotly.express as px 
 import plotly.graph_objects as go
 
-insurance_data = pd.read_csv("Month1_project/insurance.csv")
+original_data = pd.read_csv("./insurance.csv")
+insurance_data = original_data.copy()
 insurance_data['bmi'] = insurance_data['bmi'].apply(round) #시각화 편의상 BMI를 round
+insurance_data['generation'] = (insurance_data['age']//10*10).astype(str) #세대 정보 column 추가
 
 def df_insure_data():     
     return insurance_data
