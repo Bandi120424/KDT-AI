@@ -42,7 +42,7 @@ def intro():
         """,
         unsafe_allow_html=True
         )
-    add_bg_from_local('insurance_image_edit.jpg')    
+    add_bg_from_local('Month1_project/insurance_image_edit.jpg')    
 
     st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
     st.sidebar.success("Select a menu")
