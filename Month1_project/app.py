@@ -1,5 +1,4 @@
 #requirements.txt 필요
-#https://bandi120424-ai-dev-course-month1-projectapp-month-1-vxuiyx.streamlitapp.com/
 
 from tkinter import W
 import streamlit as st
