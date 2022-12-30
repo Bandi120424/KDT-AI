@@ -260,8 +260,8 @@ def predict_charges():
     
     if st.button("submit"): #버튼이 눌리면
         #입력 여부 체크
-        if input_age < 14 and input_numOfChild > 0:
-            st.write("Check your input again (in particular, number of children)")
+        if (input_age < 14 and input_numOfChild > 0) or (input_age < 19 and input_smoking == 'yes'):
+            st.write("Check your input again (in particular, number of children or smoking section)")
         else:    
             #예측을 위해 형변환
             region_list = ['northeast', 'northwest', 'southeast', 'southwest']
