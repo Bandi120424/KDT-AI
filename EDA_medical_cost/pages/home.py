@@ -2,7 +2,6 @@ import streamlit as st
 import base64
 
 def home():
-    add_bg_from_local('EDA_medical_cost/pages/insurance_image_edit.jpg)    
     
     st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
     st.sidebar.success("Select a menu")
