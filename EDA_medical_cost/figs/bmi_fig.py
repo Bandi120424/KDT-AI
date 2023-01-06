@@ -1,0 +1,108 @@
+#requirements.txt 필요
+import streamlit as st
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.express as px 
+import plotly.graph_objects as go
+import data as df
+
+southwest_data = df.df_southwest_data()
+southeast_data = df.df_southeast_data()
+northwest_data = df.df_northwest_data()
+northeast_data = df.df_northeast_data()
+
+insurance_data = df.df_insure_data()
+
+bmi_dis_fig = sns.displot(insurance_data["bmi"], kind='hist', kde = True, height = 3, aspect = 2).set(title = "Distribution of BMI")
+
+
+#저제중, 정상체중, 과제충, 비만 기분으로 데이터 나눔 
+criterion = pd.DataFrame ({'Low': ['0 - 19'], 'Normal':['20 - 24'], 'Overweight':['25 - 29'], 'Obesity':['over 30']})
+criterion.style.hide_index()
+
+bmi_low = (0<= insurance_data['bmi']) & (insurance_data['bmi'] < 20)
+bmi_normal = (20<= insurance_data['bmi']) & (insurance_data['bmi'] < 25)
+bmi_over = (25 <= insurance_data['bmi']) & (insurance_data['bmi'] < 30)
+bmi_obe = (30<= insurance_data['bmi'])
+
+bmi_low_df = insurance_data[bmi_low]
+bmi_nor_df = insurance_data[bmi_normal]
+bmi_over_df = insurance_data[bmi_over]
+bmi_obe_df = insurance_data[bmi_obe]
+
+bmi_ratio = pd.DataFrame({'Low': [len(bmi_low_df)/len(insurance_data)*100], 
+                           'Normal': [round(len(bmi_nor_df)/len(insurance_data)*100, 1)], 
+                           'Overweight': [round(len(bmi_over_df)/len(insurance_data)*100, 1)], 
+                           'Obesity': [round(len(bmi_obe_df)/len(insurance_data)*100, 1)]})
+
+#BMI group별 비용 평균 
+val_y = [bmi_low_df['charges'].mean(),  bmi_nor_df['charges'].mean(), bmi_over_df['charges'].mean(), bmi_obe_df['charges'].mean()]
+val_x = ['Low', 'Normal', 'Overweight', 'Obesity']
+bmi_group_avg_bar_fig = px.bar(x = val_x, y =val_y, color = val_x)
+bmi_group_avg_bar_fig.update_layout(
+    title={
+        'y':0.825,
+        'x':0.15,
+        'xanchor': 'left',
+        'yanchor': 'top'},
+    xaxis_title = 'BMI',
+    yaxis_title = 'average charges',
+    showlegend=False,
+    autosize = True
+)
+
+#비만/과체중 그룹의 비용 분포 
+bmi_obe_overweight_fig, (ax1, ax2) = plt.subplots(ncols = 2, figsize = (14, 5))
+sns.histplot(bmi_obe_df['charges'], kde = True, color = 'purple', ax = ax1)
+ax1.set_title("Distribution of charges in obesity group")
+sns.histplot(bmi_over_df['charges'], kde = True, color = 'green', ax = ax2)
+ax2.set_title("Distribution of charges in overweight group")
+
+
+#각 group에서 BMI에 따른 평균 charge 
+bmi_low_data_avg = bmi_low_df .groupby('bmi').mean()
+bmi_low_data_avg_bar_fig = px.bar(bmi_low_data_avg, y = 'charges')
+bmi_low_data_avg_bar_fig.update_layout(
+    title={
+        'text': "Low BMI",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'}
+)
+
+bmi_nor_data_avg = bmi_nor_df .groupby('bmi').mean()
+bmi_nor_data_avg_bar_fig = px.bar(bmi_nor_data_avg, y = 'charges')
+bmi_nor_data_avg_bar_fig.update_layout(
+    title={
+        'text': "Normal BMI",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'}
+)
+
+bmi_over_data_avg = bmi_low_df .groupby('bmi').mean()
+bmi_over_data_avg_bar_fig = px.bar(bmi_over_data_avg, y = 'charges')
+bmi_over_data_avg_bar_fig.update_layout(
+    title={
+        'text': "Overweight BMI",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'}
+)
+
+bmi_obe_data_avg = bmi_obe_df .groupby('bmi').mean()
+bmi_obe_data_avg_bar_fig = px.bar(bmi_obe_data_avg, y = 'charges')
+bmi_obe_data_avg_bar_fig.update_layout(
+    title={
+        'text': "Obesity BMI",
+        'y':0.95,
+        'x':0.5,
+        'xanchor': 'center',
+        'yanchor': 'top'}
+)
+
