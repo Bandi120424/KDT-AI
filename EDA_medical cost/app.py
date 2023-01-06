@@ -1,6 +1,6 @@
 #requirements.txt 필요
 
-from tkinter import W
+#from tkinter import W
 import streamlit as st
 
 from pages.home import home
