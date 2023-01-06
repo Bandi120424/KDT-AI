@@ -3,7 +3,6 @@ import streamlit as st
 def home():
     
     st.title("EDA on Medical Cost in the beneficiary's residential area in the US")
-    st.sidebar.success("Select a menu")
     
     st.write("made by bandi12424@naver.com") 
     st.write("dataset: https://www.kaggle.com/datasets/mirichoi0218/insurance ")
