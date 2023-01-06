@@ -6,13 +6,13 @@ import streamlit as st
 import warnings
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
-from pages.home import home
-from pages.age import age
-from pages.average import average
-from pages.bmi import bmi
-from pages.smoking import smoking
-from pages.observation import observation
-from pages.predict_charges import predict_charges
+from utils.pages.home import home
+from utils.pages.age import age
+from utils.pages.average import average
+from utils.pages.bmi import bmi
+from utils.pages.smoking import smoking
+from utils.pages.observation import observation
+from utils.pages.predict_charges import predict_charges
 
 
 class MultiApp:
