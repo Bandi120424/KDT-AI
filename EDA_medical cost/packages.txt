@@ -1,0 +1,2 @@
+libtk8.6-dev
+libgtk2.0-dev
