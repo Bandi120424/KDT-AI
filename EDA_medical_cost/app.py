@@ -3,6 +3,9 @@
 #from tkinter import W
 import streamlit as st
 
+import warnings
+warnings.simplefilter(action="ignore", category=FutureWarning)
+
 from pages.home import home
 from pages.age import age
 from pages.average import average
@@ -39,8 +42,5 @@ app.add_app("EDA-BMI", bmi)
 app.add_app("Observation", observation)
 app.add_app("Compute average cost", average)
 app.add_app("Compute expecting cost", predict_charges)
-
-
-
 
 app.run()
